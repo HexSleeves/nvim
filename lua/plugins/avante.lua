@@ -19,6 +19,10 @@ return {
   build = "make",
   -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
   opts = {
+    file_selector = {
+      provider = "fzf",
+      provider_opts = {},
+    },
     mappings = {
       ask = prefix .. "<CR>",
       edit = prefix .. "e",
@@ -109,6 +113,36 @@ return {
         end
         opts.filetypes = require("utils").list_insert_unique(opts.filetypes, { "Avante" })
       end,
+    },
+    {
+      "stevearc/dressing.nvim",
+      lazy = true,
+      opts = {
+        input = { enabled = false },
+        select = { enabled = false },
+      },
+    },
+
+    {
+      "saghen/blink.compat",
+      lazy = true,
+      opts = {},
+      config = function()
+        -- monkeypatch cmp.ConfirmBehavior for Avante
+        require("cmp").ConfirmBehavior = {
+          Insert = "insert",
+          Replace = "replace",
+        }
+      end,
+    },
+    {
+      "saghen/blink.cmp",
+      lazy = true,
+      opts = {
+        sources = {
+          compat = { "avante_commands", "avante_mentions", "avante_files" },
+        },
+      },
     },
   },
 }
