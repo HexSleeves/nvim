@@ -16,3 +16,5 @@ data
 foo.*
 node_modules
 tt.*
+
+lazy-lock.json
