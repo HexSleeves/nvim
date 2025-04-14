@@ -1,7 +1,9 @@
 return {
   "saghen/blink.cmp",
+  build = "cargo +nightly build --release",
   ---@class PluginLspOpts
   opts = {
+    fuzzy = { implementation = "prefer_rust" },
     signature = { enabled = true },
     keymap = {
       preset = "super-tab",
