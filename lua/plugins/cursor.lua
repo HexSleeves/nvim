@@ -1,3 +1,3 @@
 return {
-  "reachingforthejack/cursortab.nvim",
+  -- "reachingforthejack/cursortab.nvim",
 }
