@@ -1,10 +1,3 @@
--- Reenable once complete
--- https://github.com/LazyVim/LazyVim/pull/6183/files#diff-dab4dc74d913bee135e152f450f79ce838e492b714fb02cb066b09b1283fec0a
-
-if true then
-  return {}
-end
-
 return {
   "saghen/blink.cmp",
   -- build = "cargo build --release",

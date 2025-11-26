@@ -1,148 +1,52 @@
-local prefix = "<Leader>A"
-
 return {
   "yetone/avante.nvim",
+  build = vim.fn.has("win32") ~= 0 and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+    or "make",
   event = "VeryLazy",
-  lazy = false,
-  version = false, -- set this if you want to always pull the latest change
-  cmd = {
-    "AvanteAsk",
-    "AvanteBuild",
-    "AvanteEdit",
-    "AvanteRefresh",
-    "AvanteSwitchProvider",
-    "AvanteChat",
-    "AvanteToggle",
-    "AvanteClear",
-  },
-  -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-  build = "make",
-  -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+  version = false,
+  ---@module 'avante'
+  ---@type avante.Config
   opts = {
-    file_selector = {
-      provider = "fzf",
-      provider_opts = {},
+    instructions_file = "avante.md",
+    behaviour = {
+      -- auto_suggestions = true,
     },
-    mappings = {
-      ask = prefix .. "<CR>",
-      edit = prefix .. "e",
-      refresh = prefix .. "r",
-      focus = prefix .. "f",
-      toggle = {
-        default = prefix .. "t",
-        debug = prefix .. "d",
-        hint = prefix .. "h",
-        suggestion = prefix .. "s",
-        repomap = prefix .. "R",
+    providers = {
+      claude = {
+        endpoint = "https://api.anthropic.com",
+        model = "claude-sonnet-4-20250514",
+        timeout = 30000,
       },
-      diff = {
-        next = "]c",
-        prev = "[c",
-      },
-      files = {
-        add_current = prefix .. ".",
+      moonshot = {
+        endpoint = "https://api.moonshot.ai/v1",
+        model = "kimi-k2-0711-preview",
+        timeout = 30000,
       },
     },
   },
+  -- Only include dependencies not provided by LazyVim
   dependencies = {
-    "stevearc/dressing.nvim",
-    "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",
-    --- The below dependencies are optional,
-    "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
-    "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-    -- "zbirenbaum/copilot.lua", -- for providers='copilot'
     {
-      -- support for image pasting
       "HakonHarnes/img-clip.nvim",
       event = "VeryLazy",
       opts = {
-        -- recommended settings
         default = {
           embed_image_as_base64 = false,
           prompt_for_file_name = false,
           drag_and_drop = {
             insert_mode = true,
           },
-          -- required for Windows users
           use_absolute_path = true,
         },
       },
     },
     {
-      -- Make sure to set this up properly if you have lazy=true
       "MeanderingProgrammer/render-markdown.nvim",
       opts = {
         file_types = { "markdown", "Avante" },
       },
       ft = { "markdown", "Avante" },
-    },
-  },
-  specs = { -- configure optional plugins
-    { -- if copilot.lua is available, default to copilot provider
-      "zbirenbaum/copilot.lua",
-      optional = true,
-      specs = {
-        {
-          "yetone/avante.nvim",
-          opts = {
-            provider = "copilot",
-            auto_suggestions_provider = "copilot",
-          },
-        },
-      },
-    },
-    {
-      -- make sure `Avante` is added as a filetype
-      "MeanderingProgrammer/render-markdown.nvim",
-      optional = true,
-      opts = function(_, opts)
-        if not opts.file_types then
-          opts.filetypes = { "markdown" }
-        end
-        opts.file_types = require("utils").list_insert_unique(opts.file_types, { "Avante" })
-      end,
-    },
-    {
-      -- make sure `Avante` is added as a filetype
-      "OXY2DEV/markview.nvim",
-      optional = true,
-      opts = function(_, opts)
-        if not opts.filetypes then
-          opts.filetypes = { "markdown", "quarto", "rmd" }
-        end
-        opts.filetypes = require("utils").list_insert_unique(opts.filetypes, { "Avante" })
-      end,
-    },
-    {
-      "stevearc/dressing.nvim",
-      lazy = true,
-      opts = {
-        input = { enabled = false },
-        select = { enabled = false },
-      },
-    },
-
-    {
-      "saghen/blink.compat",
-      lazy = true,
-      opts = {},
-      config = function()
-        -- monkeypatch cmp.ConfirmBehavior for Avante
-        require("cmp").ConfirmBehavior = {
-          Insert = "insert",
-          Replace = "replace",
-        }
-      end,
-    },
-    {
-      "saghen/blink.cmp",
-      lazy = true,
-      opts = {
-        sources = {
-          compat = { "avante_commands", "avante_mentions", "avante_files" },
-        },
-      },
     },
   },
 }

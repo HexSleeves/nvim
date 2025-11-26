@@ -1,3 +1,5 @@
+-- Disabled plugins
+-- Add plugins here that you want to explicitly disable
 return {
-  { "yetone/avante.nvim", enabled = false },
+  { "m4xshen/hardtime.nvim", enabled = false },
 }
