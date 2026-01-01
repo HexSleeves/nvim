@@ -1,5 +1,8 @@
 -- Plugin initialization file
--- Note: All plugins in this directory are auto-loaded by lazy.nvim
--- This file can be used for plugins that need special initialization logic
+-- Import all plugin subdirectories
 
-return {}
+return {
+  { import = "plugins.ai" },
+  { import = "plugins.editor" },
+  { import = "plugins.lang" },
+}
