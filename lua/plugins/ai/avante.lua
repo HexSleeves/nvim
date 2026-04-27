@@ -41,6 +41,7 @@ return {
   ---@module 'avante'
   ---@type avante.Config
   opts = {
+    provider = "claude",
     instructions_file = "avante.md",
     behaviour = {
       -- auto_suggestions = true,

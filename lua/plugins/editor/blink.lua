@@ -1,6 +1,7 @@
 return {
   "saghen/blink.cmp",
-  -- build = "cargo build --release",
+  dependencies = { "saghen/blink.lib", version = "2.*" },
+  build = function() require("blink.cmp").build():wait(60000) end,
   ---@class PluginLspOpts
   opts = {
     -- fuzzy = { implementation = "prefer_rust" },
