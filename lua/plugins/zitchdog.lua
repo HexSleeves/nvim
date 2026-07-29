@@ -1,8 +1,8 @@
 return {
 	{
 		"theamallalgi/zitchdog",
-		lazy = false,
-		priority = 1000,
+		lazy = true,
+		event = "VeryLazy",
 		dependencies = { "folke/snacks.nvim" },
 		opts = {
 			variant = "grape",

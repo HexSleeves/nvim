@@ -1,5 +1,7 @@
 return {
   "neovim/nvim-lspconfig",
+  lazy = true,
+  ft = "go",
   ---@class PluginLspOpts
   opts = {
     servers = {

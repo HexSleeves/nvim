@@ -1,7 +1,8 @@
 return {
 	{
 		"RRethy/base16-nvim",
-		priority = 1000,
+		lazy = true,
+		event = "VeryLazy",
 		config = function()
 			require('base16-colorscheme').setup({
 				base00 = '#292c3c',

@@ -1,6 +1,7 @@
 return {
   "sindrets/diffview.nvim",
   -- Lazy load on command for better startup performance
+  lazy = true,
   cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
   keys = {
     { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Diffview Open" },
