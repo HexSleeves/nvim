@@ -7,7 +7,7 @@
 --
 -- Saving this file hot-reloads the active theme. `:Theme <name>` switches at runtime.
 -- Overriding `{ "LazyVim/LazyVim", opts = { colorscheme = "..." } }` elsewhere also works.
-local colorscheme = "oxocarbon"
+local colorscheme = "catppuccin"
 
 -- Custom base16 palette ("dankcolors"), plus highlight tweaks applied on top of it.
 local dank_palette = {
